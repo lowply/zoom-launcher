@@ -1,5 +1,7 @@
 # Zoom Launcher
 
+Open the Zoom URL of the next meeting in your Google Calendar.
+
 ## Prep
 
 - Run `mkdir ~/.config/google-calendar-api`
@@ -15,3 +17,7 @@ email: you@example.com
 zoomurl: "^https://company.zoom.us/.*$"
 EOF
 ```
+
+## Usage
+
+Running `zoom-launcher` in your terminal will show you the next 3 meetings that you've accepted on Google Calendar. If the next one has the Zoom meeting URL, it converts the URL from `https://` to `zoommtg://` then opens it.
