@@ -1,8 +1,10 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"net/url"
+	"os"
 	"os/exec"
 	"regexp"
 	"strings"
@@ -39,8 +41,8 @@ func NewMeeting(item *calendar.Event) (*meeting, error) {
 	if c == nil {
 		// No conference has been set.
 		// Checking the description field to see if there's the Zoom URL
-		desc := strings.Split(item.Description, "<br>")
-		for _, d := range desc {
+		lines := strings.Split(item.Description, "<br>")
+		for _, d := range lines {
 			re := regexp.MustCompile(config.Zoomurl)
 			find := re.Find([]byte(d))
 			if len(find) != 0 {
@@ -87,12 +89,15 @@ func (m *meeting) open() error {
 	if m.zoomUrl == nil {
 		return nil
 	}
-	fmt.Println("Opening the next zoom URL...")
-	cmd := exec.Command("open", m.zoomUrl.String())
-	err := cmd.Run()
-	if err != nil {
-		return err
+	fmt.Printf("Do you want to join %v now? y/n\n", m.name)
+	scanner := bufio.NewScanner(os.Stdin)
+	scanner.Scan()
+	if scanner.Text() == "y" {
+		cmd := exec.Command("open", m.zoomUrl.String())
+		err := cmd.Run()
+		if err != nil {
+			return err
+		}
 	}
-
 	return nil
 }

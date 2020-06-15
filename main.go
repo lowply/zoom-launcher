@@ -51,7 +51,13 @@ func main() {
 
 	// Show next 3 meetings
 	for _, m := range meetings[:3] {
-		fmt.Printf("[%v] %v: %v (%v)\n", m.date, m.name, m.zoomUrl, m.url)
+		u := ""
+		if m.url == nil {
+			u = "No meeting URL"
+		} else {
+			u = m.url.String()
+		}
+		fmt.Printf("[%v] %v: %v\n", m.date, m.name, u)
 	}
 
 	// Open the next meeting URL
