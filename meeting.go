@@ -43,7 +43,7 @@ func NewMeeting(item *calendar.Event) (*meeting, error) {
 		// Checking the description field to see if there's the Zoom URL
 		lines := strings.Split(item.Description, "<br>")
 		for _, d := range lines {
-			re := regexp.MustCompile(config.Zoomurl)
+			re := regexp.MustCompile(config.Regex)
 			find := re.Find([]byte(d))
 			if len(find) != 0 {
 				m.url, err = url.Parse(string(find))
@@ -57,7 +57,7 @@ func NewMeeting(item *calendar.Event) (*meeting, error) {
 	} else {
 		// A Zoom conference has been set.
 		for _, e := range c.EntryPoints {
-			matched, err := regexp.Match(config.Zoomurl, []byte(e.Uri))
+			matched, err := regexp.Match(config.Regex, []byte(e.Uri))
 			if err != nil {
 				return nil, err
 			}
@@ -89,7 +89,7 @@ func (m *meeting) open() error {
 	if m.zoomUrl == nil {
 		return nil
 	}
-	fmt.Printf("Do you want to join %v now? y/n\n", m.name)
+	fmt.Printf("Do you want to join \"%v\" now? y/n\n", m.name)
 	scanner := bufio.NewScanner(os.Stdin)
 	scanner.Scan()
 	if scanner.Text() == "y" {
