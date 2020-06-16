@@ -6,18 +6,28 @@ import (
 	"os"
 )
 
-const (
-	CredsDir = "/.config/google-calendar-api"
-	ConfPath = "/.config/zoom-launcher.yaml"
-)
+type Config struct {
+	Email    string
+	Regex    string
+	CredsDir string
+}
+
+var config Config
 
 func main() {
-	_, err := os.Stat(os.Getenv("HOME") + CredsDir + "/credentials.json")
-	if err != nil {
-		log.Fatal(err)
+	if os.Getenv("ZL_EMAIL") == "" {
+		log.Fatal("ZL_EMAIL is empty")
 	}
 
-	err = readconfig(os.Getenv("HOME") + ConfPath)
+	if os.Getenv("ZL_REGEX") == "" {
+		log.Fatal("ZL_REGEX is empty")
+	}
+
+	config.Email = os.Getenv("ZL_EMAIL")
+	config.Regex = os.Getenv("ZL_REGEX")
+	config.CredsDir = os.Getenv("HOME") + "/.config/google-calendar-api"
+
+	_, err := os.Stat(config.CredsDir + "/credentials.json")
 	if err != nil {
 		log.Fatal(err)
 	}

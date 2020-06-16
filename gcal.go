@@ -24,8 +24,8 @@ type gcal struct {
 
 func NewGcal() gcal {
 	return gcal{
-		token:      os.Getenv("HOME") + CredsDir + "/token.json",
-		credential: os.Getenv("HOME") + CredsDir + "/credentials.json",
+		token:      config.CredsDir + "/token.json",
+		credential: config.CredsDir + "/credentials.json",
 	}
 }
 
