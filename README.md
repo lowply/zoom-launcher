@@ -4,13 +4,15 @@ Open the Zoom URL of the next meeting in your Google Calendar.
 
 ## Installation
 
-[Install Go](https://golang.org/doc/install) and run:
+If you're on macOS, download the latest release from [the releases page](https://github.com/lowply/zoom-launcher/releases) and put the `zoom-launcher` binary to whereever you like, such as `/usr/local/bin`.
+
+If you're not, please [install Go](https://golang.org/) first, then run:
 
 ```
 go get github.com/lowply/zoom-launcher
 ```
 
-The `zoom-launcher` command will be installed in `$GOPATH/bin`.
+The `zoom-launcher` command will be installed in your `$GOPATH/bin`.
 
 ## Prep
 
