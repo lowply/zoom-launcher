@@ -60,7 +60,7 @@ func main() {
 	}
 
 	// Show next 3 meetings
-	for _, m := range meetings[:3] {
+	for i, m := range meetings {
 		u := ""
 		if m.url == nil {
 			u = "No meeting URL"
@@ -68,6 +68,10 @@ func main() {
 			u = m.url.String()
 		}
 		fmt.Printf("[%v] %v: %v\n", m.date, m.name, u)
+
+		if i == 2 {
+			break
+		}
 	}
 
 	// Open the next meeting URL
